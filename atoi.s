@@ -9,6 +9,8 @@ movzx rax, byte ptr [rdi]
 sub rax, 0x30
 mov rdx, rax
 inc rdi
+cmp byte ptr [rdi], 0
+je done
 jmp loop
 
 loop:
