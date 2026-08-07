@@ -3,12 +3,12 @@
 
 atoi:
 
+cmp byte ptr [rdi], 0x2d
+je negative_handling
 movzx rax, byte ptr [rdi]
 sub rax, 0x30
 mov rdx, rax
 inc rdi
-cmp byte ptr [rdi], 0
-je done
 jmp loop
 
 loop:
@@ -22,5 +22,16 @@ mov rax, rdx
 inc rdi
 jmp loop
 
+negative_handling:
+mov r8, 1
+inc rdi
+jmp atoi
+
 done:
+cmp r8, 1
+je negative_done
+ret
+
+negative_done:
+neg rax
 ret
