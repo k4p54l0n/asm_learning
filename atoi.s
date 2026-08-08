@@ -9,13 +9,17 @@ movzx rax, byte ptr [rdi]
 sub rax, 0x30
 mov rdx, rax
 inc rdi
-cmp byte ptr [rdi], 0
-je done
+cmp byte ptr [rdi], '9'
+ja done
+cmp byte ptr [rdi], '0'
+jb done
 jmp loop
 
 loop:
-cmp byte ptr [rdi], 0
-je done
+cmp byte ptr [rdi], '9'
+ja done
+cmp byte ptr [rdi], '0'
+jb done
 imul rdx, 10
 movzx rax, byte ptr [rdi]
 sub rax, 0x30
