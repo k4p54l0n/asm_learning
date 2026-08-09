@@ -30,6 +30,5 @@ inc r11
 jmp drop_zero
 
 done:
-mov [rsi+r11], dx
 mov rax, r10
 ret
