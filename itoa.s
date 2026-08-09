@@ -7,7 +7,16 @@ mov r11, 0
 xor rdx, rdx
 mov rcx, 10
 mov rax, rdi
+cmp rdi, 0
+jl is_negative
+jmp loop
 
+is_negative:
+mov byte ptr [rsi], 0x2d
+neg rax
+inc r10
+inc r11
+jmp loop
 
 loop:
 xor rdx, rdx
