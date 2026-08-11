@@ -2,7 +2,8 @@
 .global _start
 _start:
 
-mov r8, 0
+xor r13, r13
+xor r8, r8
 mov r12, [rsp]
 lea r14, [rsp+16]
 jmp atoi
