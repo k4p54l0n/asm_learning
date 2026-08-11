@@ -5,8 +5,14 @@ _start:
 xor r13, r13
 xor r8, r8
 mov r12, [rsp]
+cmp r12, 0
+je no_arguments
 lea r14, [rsp+16]
 jmp atoi
+
+no_arguments:
+mov r13, 0
+jmp finish
 
 atoi:
 mov rdi, [r14]
