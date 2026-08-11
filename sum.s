@@ -5,7 +5,7 @@ _start:
 xor r13, r13
 xor r8, r8
 mov r12, [rsp]
-cmp r12, 0
+cmp r12, 1
 je no_arguments
 lea r14, [rsp+16]
 jmp atoi
