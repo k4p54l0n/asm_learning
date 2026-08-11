@@ -2,12 +2,14 @@
 .global _start
 _start:
 
+mov r8, 0
 mov r12, [rsp]
 lea r14, [rsp+16]
 jmp atoi
 
 atoi:
 mov rdi, [r14]
+add rdi, r8
 cmp byte ptr [rdi], 0x2d
 je negative_handling
 movzx rax, byte ptr [rdi]
@@ -35,12 +37,7 @@ jmp loop
 
 negative_handling:
 mov r8, 1
-inc rdi
-movzx rax, byte ptr [rdi]
-sub rax, 0x30
-mov rdx, rax
-inc rdi
-jmp loop
+jmp atoi
 
 done:
 cmp r8, 1
