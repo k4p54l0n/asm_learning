@@ -93,12 +93,6 @@ cmp r8, 1
 je negative_done
 jmp operators 
 
-negate:
-dec r12
-neg rax
-mov r13, rax
-jmp finish
-
 flip:
 dec r12
 not rax
