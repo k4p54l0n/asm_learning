@@ -3,6 +3,7 @@
 _start:
 
 # r12 = argc ; r14 = pointer to argvs ; rdi = char of argvs
+
 xor r13, r13
 xor r8, r8
 mov r12, [rsp]
@@ -30,6 +31,8 @@ cmp byte ptr [r11], '+'
 je addition
 cmp byte ptr [r11], '-'
 je substraction 
+cmp byte ptr [r11], '*'
+je multiplication
 jmp not_supported
 
 atoi:
@@ -92,6 +95,24 @@ xor rax, rax
 cmp r12, 1
 je sub_finish
 jmp atoi
+
+# r13 is destination register that holds the value after operation
+# rax holds the int of ascii
+# rax*rbx
+
+multiplication:
+dec r12
+cmp r12, 1
+je mul_finish
+add r14, 16
+mov rbx, rax
+xor rax, rax
+jmp atoi
+
+mul_finish:
+imul rax, rbx 
+mov rdi, rax
+jmp itoa
 
 sub_finish:
 mov rdi, r13
