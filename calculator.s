@@ -2,17 +2,30 @@
 .global _start
 _start:
 
-xor r13, r13
-xor r8, r8
 mov r12, [rsp]
 cmp r12, 1
 je no_arguments
+cmp r12, 3
+je unary
+xor r13, r13
+xor r8, r8
 dec r12
 lea r14, [rsp+24]
 mov rdi, [r14]
 mov r11, rdi
 xor rdi, rdi
 lea r14, [rsp+16]
+jmp atoi
+
+unary:
+xor r13, r13
+xor r8, r8
+dec r12
+lea r14, [rsp+16]
+mov rdi, [r14]
+mov r11, rdi
+xor rdi, rdi
+lea r14, [rsp+24]
 jmp atoi
 
 not_supported:
@@ -25,6 +38,10 @@ mov r13, 0
 jmp finish
 
 operators:
+cmp byte ptr[r11], '~'
+je flip 
+cmp byte ptr[r11], '-'
+je substraction
 cmp byte ptr [r11], '+'
 je addition
 cmp byte ptr [r11], '-'
@@ -75,6 +92,18 @@ done:
 cmp r8, 1
 je negative_done
 jmp operators 
+
+negate:
+dec r12
+neg rax
+mov r13, rax
+jmp finish
+
+flip:
+dec r12
+not rax
+mov r13, rax
+jmp finish
 
 negative_done:
 xor r8, r8
