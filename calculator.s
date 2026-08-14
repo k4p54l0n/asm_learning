@@ -2,14 +2,27 @@
 .global _start
 _start:
 
+# r12 = argc ; r14 = pointer to argvs ; rdi = char of argvs
+
+# need to have a register hold a value depending on the operator in argv[2]
 xor r13, r13
 xor r8, r8
 mov r12, [rsp]
 cmp r12, 1
 je no_arguments
 dec r12
+lea r14, [rsp+24]
+mov rdi, [r14]
+cmp byte ptr [rdi], '+'
+jne not_supported
+xor rdi, rdi
 lea r14, [rsp+16]
 jmp atoi
+
+not_supported:
+mov rdi, -1
+mov rax, 60
+syscall
 
 no_arguments:
 mov r13, 0
