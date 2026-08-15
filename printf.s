@@ -18,8 +18,22 @@ cmp byte ptr [rsi], 0
 je done
 cmp byte ptr [rsi], 0x5c  # check for /
 je newline
+cmp byte ptr [rsi], 0x25 # check for %
+je percentage
 syscall
 inc rsi
+jmp read
+
+percentage:
+cmp byte ptr[rsi+1], 0x25
+je write_percentage
+syscall
+inc rsi
+jmp read
+
+write_percentage:
+syscall
+add rsi, 2
 jmp read
 
 newline:
